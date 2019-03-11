@@ -4,7 +4,8 @@
 #include "structs.h"
 #include "bit.h"
 #include "hash.h"
-#define MAX 256
+#include "global.h"
+
 
 node *create_node(unsigned char data, int freq, node* left, node* right)
 {
