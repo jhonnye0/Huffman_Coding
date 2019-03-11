@@ -1,4 +1,4 @@
-#define CHAR_SIZE 257
+#include "global.h"
 
 typedef struct node
 {
