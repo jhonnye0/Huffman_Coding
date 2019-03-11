@@ -1,10 +1,11 @@
 //compress file
 #include <stdio.h>
 #include <string.h>
+#include "global.h"
 
-void sethuff(char *arq_name, char *arq_huff){
+// void sethuff(char *arq_name, char *arq_huff){
 
-}
+// }
 
 void compress(FILE *input, hash_tree *hash, node *tree, char *arq_name){
 	strcat(arq_name, ".huff");
