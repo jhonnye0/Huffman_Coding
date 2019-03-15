@@ -137,7 +137,7 @@ int main()
 	hash_tree *hash = create_hash();
 	build_hash(head, hash, 0);
 	rewind(p);
-	//compress(p, hash, head, arq_name);
+	compress(p, hash, head, arq_name);
 	//decompress(p, hash, head, arq_name);
 	//CABO
 	fclose(p);

@@ -4,7 +4,7 @@
 
 void put_from_tree(hash_tree *hashtree, unsigned char key, unsigned char comp)
 {
-	unsigned int index;
+	int index;
 	index = key;
 	int tam = ceil(log2(comp+1));
 	element *new_element = (element*) malloc(sizeof(element));
