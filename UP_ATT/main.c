@@ -16,11 +16,11 @@
 
 void comp();
 void decomp();
-void freeall(node *head, stack *stacktree, hash_tree *hash);
+void freeall(node *head, stack *stacktree);
 
 void comand_output() //esse aq
 {
-  system("cls");
+	//BORA LOGO TEM HIFEN?//MDS DEU RUIM
   int comando;
   puts(" Para realizar um comando digite o valor correspondente:\n\n\n\n");
   puts(" 1. Comprimir arquivo\n");
@@ -33,7 +33,6 @@ void comand_output() //esse aq
   {
       case 1 :
       comp();
-
       break;
 
       case 2 :
@@ -67,7 +66,20 @@ unsigned char trash_calc(unsigned char *c)
 }
 //so p confirmar q to no codigo certo K
 // 0kb '-'
-void freeall(node *head, stack *stacktree, hash_tree *hash){
+void eraseHash(hash_tree *hashTable){
+  int i;
+  for(i = 0; i < CHAR_SIZE; i++)
+  {
+  	if(hashTable->trees[i] != NULL)
+  	{
+  		///VAI SEPARADO MSM, TO NJEM AI
+  		free(hashTable->trees[i]->path_numofbits);
+   		free(hashTable->trees[i]);
+  	}
+  }
+  free(hashTable);
+}
+void freeall(node *head, stack *stacktree){
 	int i;
 	node *current = head;
 	while(current != NULL)
@@ -83,59 +95,59 @@ void freeall(node *head, stack *stacktree, hash_tree *hash){
 		stacktree->top = stacktree->top->next;
 		scurrent = stacktree->top;
 	}
-	//ss//PQ AGR N TA DANDO MAIS ERRO??????????????????????????
-	for(i = 0; i <= CHAR_SIZE; i++)
-	{
-		if(hash->trees[i] != NULL)
-		{
-			free(hash->trees[i]);
-		}
-	}
-	free(hash);
 	free(stacktree);
 }
 void comp()
 {
-	getchar();
+	invalido: //goto
 	system("cls");
-	int i;
-	node *head = NULL;
 	char arq_name[300];
-	stack *stacktree = criars();
+
 	printf("\n\n\n Digite nome de arquivo junto a seu formato (ex ""musica.mp3""): \n\n\n ");
+	getchar();
 	scanf("%[^\n]s", arq_name);
+
 	FILE *input = fopen(arq_name, "rb");
 	//verify
 	if(input == NULL)
 	{
 		puts("Arquivo invalido, tente novamente");
 		sleep(1);
-		comp();
+
+		goto invalido;
 	}
-	int arr[MAX] = {0}; // recebe as freq..
+	int i;
+	node *head = NULL;
+	stack *stacktree = criars();
+	int arr[MAX] = {0}; 
 	system("cls");
+
 	printf("\n\n\n Salvando frequencia de bytes...\n\n\n ");
 	sleep(1);
+
 	FrequencyEnqueue(input, arr, &head); 
 	makeHuffmanTree(&head);	
+	//print_lista(head);
+
 	printf("\n\n\n Criando arvore huffman...\n\n\n ");
-	//hash
 	printf("\n\n\n Criando Hash de mapeamento...\n\n\n ");
 	sleep(1);
+
 	hash_tree *hash = create_hash();
 	build_hash(head, hash, stacktree);
-    //compresscall
+
     printf("\n\n\n Iniciando compressao...\n\n\n ");
 	sleep(1);
+
 	rewind(input);
 	compress(input, hash, head, arq_name);
-	//s, queria entender wtf ALEATORIO DEMAIS
-	fclose(input);
-	//q old ta dando erro...
-	//Descompress de vcs ta dando erro kk
-	//freeall(head, stacktree, hash); 
-
-	
+	//free
+	freeall(head, stacktree);
+	eraseHash(hash);
+	//DA PRA LER N? KKKKKKKKKKKKKKKKKKKKKK
+	puts(" Saindo do programa em 5 segundos");
+	sleep(5);
+	point_output(3);
 }
 void decomp(){
 	//ta funcionando...
@@ -144,10 +156,10 @@ void decomp(){
 	char formato[25];
 	int i;
 	getchar();
-	printf("Digita o nome do arquivo.huff : \n\n");
+	printf("Digite o nome do arquivo.huff : \n\n ");
 	scanf("%[^\n]s", arq_name);
 	FILE *output = fopen(arq_name, "r+b");
-	printf("Digita o nome do formato ex: mp3 : \n\n");
+	printf("Digita o nome do formato de saida (ex: mp3) : \n\n ");
 	getchar();
 	scanf("%[^\n]s", formato);
 	sleep(2);
@@ -161,18 +173,18 @@ void decomp(){
 	
 	fseek(output,-1,SEEK_END);
 	unsigned char aux_bit=0;
-	aux_bit=fgetc(output);
-	//printf("%d",aux_bit);
+	aux_bit = fgetc(output);
+
 	long long int bytes_arq = ftell(output);
 	rewind(output);
 	
 
-	unsigned char trash_size=0;
-	unsigned short tree_size=0;
+	unsigned char trash_size = 0;
+	unsigned short tree_size = 0;
 	unsigned char c;
-	//posso testar com imagem?
-	//fscanf(output,"%d",&c);
+
 	c = fgetc(output);
+
 	//Obter o tamanho do lixo
 	puts(" Obtendo tamanho do lixo...");
 	sleep(1);
@@ -185,6 +197,7 @@ void decomp(){
 		}
 
 	}
+
 	puts(" Calculando tamanho da arvore...");
 	sleep(1);
 	fscanf(output,"%c",&tree_size);
@@ -205,19 +218,19 @@ void decomp(){
 	FILE* novoarquivo = fopen(out_str,"w+b");
 	int j;
 	h_tree *raiz = tree;
-    puts(" Relizando descompressão...");
-    puts(" Aguarde...");
+    puts(" Relizando descompressao...");
+    printf(" Aguarde...\n ");
 	sleep(1);
+	//carregamento
+	long long int chager = 0;
 	while(fscanf(output,"%c",&c) != EOF)
 	{
-		
-		if(ftell(output)>=(bytes_arq-1))
+		if(ftell(output)>=(bytes_arq))
 		{
 			break;
 		}
-		for(j=7;j>=0;j--)
+		for(j = 7; j >= 0; j--)
 		{
-			
            if(is_bit_i_set(c,j))
            {
            	tree=tree->right;
@@ -232,9 +245,18 @@ void decomp(){
 			tree = raiz;
 		   }
 		}
-		
+		if(chager%9999 == 0 && chager <= 9999*75)
+		{	
+			printf("%c", 219);
+		}
+		chager += 1; 
 	}
-	for(j = 7; j >= trash_size; j--)
+	puts(" 100%%");
+	//So executar essa vez
+	//SÓ? TA LOUCO É DIFICIL VEY
+	if(trash_size)
+	{
+		for(j = 7; j >= trash_size; j--)
 		{
            if( is_bit_i_set(aux_bit,j) )
            {
@@ -246,12 +268,16 @@ void decomp(){
            }
            if(tree->right == NULL && tree->left==NULL)
 		   {  
-		    fputc(tree->c,novoarquivo);
-			tree = raiz;
+		    	fputc(tree->c,novoarquivo);
+				tree = raiz;
 		   }
 		}
-		puts(" Arquivo descomprimido com sucesso");
-		sleep(2);
+	}
+	puts(" Arquivo descomprimido com sucesso!");
+	puts(" Saindo do programa em 5 segundos");
+
+	sleep(5);
+	point_output(3);
 }
 void main()
 {

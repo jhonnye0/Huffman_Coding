@@ -9,7 +9,7 @@ typedef struct h_tree
 
 typedef struct node
 {
-	int f;
+	long int f;
 	unsigned char c;
 	struct node *next;
 	struct node *left;

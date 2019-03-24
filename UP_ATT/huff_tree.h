@@ -50,6 +50,17 @@ void print_pre_order(h_tree *tree)
     	print_pre_order(tree->right);
 	}
 }
+
+void print_lista(node *tree)
+{	
+	if(tree != NULL)
+	{
+    	printf("%c ", tree->c);
+    	print_lista(tree->left);
+    	print_lista(tree->right);
+	}
+}
+
 h_tree *create_t_node(unsigned char c, h_tree* left, h_tree* right)
 {
 	h_tree *new = (h_tree *) malloc(sizeof(h_tree));
@@ -101,13 +112,21 @@ h_tree *montar_arvore(FILE *output, h_tree *tree, int tree_size, int cont) //des
 }
 void makeHuffmanTree(node **head)
 {
-	while((*head)->next != NULL)
+	if((*head)->next == NULL)
 	{
-		//print_list(*head);
-		*head = make_tree(*head); 	
-		//printf("\n");
-	}	
-	//print_list(*head);
+		node *aux = *head;
+
+		*head = add(*head, '*', aux->f, aux, NULL);
+	}
+	else
+	{
+		while((*head)->next != NULL)
+		{
+			//print_list(*head);
+			*head = make_tree(*head); 	
+			//printf("\n");
+		}		
+	}
 }
 void FrequencyEnqueue(FILE *p, int *arr, node **head)
 {

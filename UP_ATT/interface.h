@@ -8,7 +8,8 @@ void welcome_output()
   //system("color 02");
   printf("\n\n\a\a BEM");
   sleep(1);
-  printf(" \a\aVINDO A INTERFACE!\n\n\n\n\n");
+  printf(" \a\a-VINDO A INTERFACE!\n\n\n\n\n");
+  sleep(1);
 
 }
 void point_output(int qnt){
@@ -23,7 +24,7 @@ void point_output(int qnt){
 
 void inter()
 {
-  system("cls");
+    system("cls");
     FILE *inter = fopen("interface.txt","r"); 
     unsigned char c;
     system("color 0C");
