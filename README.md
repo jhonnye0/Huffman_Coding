@@ -1,12 +1,18 @@
 Projeto Huffman 2018.2
 Equipe:
-João Victor Ribeiro
-Lucas Massa
-William Philippe
-Apresentação:
-Dia: 25/03/2019
+Mateus Fernando Felismino da Silva Patriota
+Jhonnye Gabriel
+Igor Hutson Dias Fontes
+Hugo Gabriel Melo santos
+
+
 Seminário:
-Topological Sort
+Trie
+
+Apresentação:
+Dia: 27/03/2019
+
 Contagem e Plotagem:
-AVL VS ABB
+Lista vs ABB
+
 © 2019 GitHub, Inc.
