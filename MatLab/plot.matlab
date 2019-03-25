@@ -1,4 +1,4 @@
-x = linspace(0,10,100); % (consertar essa descrição) limits of the axis-x and 100 is the number of points of the graph
+x = linspace(0,10,100); 
 filename = 'inputlist.txt';
 delimiterIn = ' '; %declare the character used to separate de columnsin the input
 headerlinesIn = 1; %declare the number of lines of the header of the .txt
