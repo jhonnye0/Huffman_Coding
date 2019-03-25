@@ -2,9 +2,13 @@ Projeto Huffman 2018.2
 
 Equipe:
 Mateus Fernando Felismino da Silva Patriota
+
 Jhonnye Gabriel
+
 Igor Hutson Dias Fontes
+
 Hugo Gabriel Melo santos
+
 
 
 Seminário:
