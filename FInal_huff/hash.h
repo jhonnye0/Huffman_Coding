@@ -64,6 +64,7 @@ void build_hash(node *hufftree, hash_tree *hashtree, stack *stacktree) // compre
 {
 	if(hufftree == NULL)
 	{	
+		pop(stacktree);
 		return;		
 	} 
 
